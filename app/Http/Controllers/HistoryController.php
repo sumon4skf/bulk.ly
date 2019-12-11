@@ -26,7 +26,7 @@ class HistoryController extends Controller
 
         $BufferPosting = BufferPosting::with('groupInfo','accountInfo');
 
-        if(request()->has('search') ){
+        if(request()->has('search') && $search !== ""){
             $BufferPosting = $BufferPosting->where('post_text', 'LIKE', "%{$search}%" );
         }
 
@@ -36,7 +36,7 @@ class HistoryController extends Controller
         // }
 
         
-        if(request()->has('group')){
+        if(request()->has('group') && $group !== ""){
 
             $BufferPosting = $BufferPosting->where('group_id', $group );
         }

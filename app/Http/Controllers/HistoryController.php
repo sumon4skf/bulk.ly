@@ -26,17 +26,17 @@ class HistoryController extends Controller
 
         $BufferPosting = BufferPosting::with('groupInfo','accountInfo');
 
-        if($search !== "" ){
+        if(request()->has('search') ){
             $BufferPosting = $BufferPosting->where('post_text', 'LIKE', "%{$search}%" );
         }
 
         
-        // if($date !== "" ){
+        // if(request()->has('date')){
         //     $BufferPosting = $BufferPosting->where('sent_at',  date("Y-m-d H:i:s", strtotime($date)) );
         // }
 
         
-        if($group !== ""){
+        if(request()->has('group')){
 
             $BufferPosting = $BufferPosting->where('group_id', $group );
         }
@@ -46,7 +46,7 @@ class HistoryController extends Controller
 
         $groups = SocialPostGroups::get();
 
-        //  dd($groups);
+         // dd($BufferPosting);
 
        return view('pages.history', compact('BufferPosting','groups'));
     }

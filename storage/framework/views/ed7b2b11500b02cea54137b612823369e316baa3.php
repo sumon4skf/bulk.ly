@@ -15,6 +15,7 @@
                     </div>    
                     <div class="form-group col-sm-3">
                         <select name="group" class="form-control">
+                            <option value="">Group</option>
                             <?php $__currentLoopData = $groups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($group->id); ?>" <?php if(request()->input('group') == $group->id): ?> selected <?php endif; ?>><?php echo e($group->name); ?></option>                                
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

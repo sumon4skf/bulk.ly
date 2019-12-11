@@ -19,9 +19,11 @@ class HistoryController extends Controller
     public function index()
     {
         $search = request()->input('search');
-        $search = explode("+", $search );
-        $search = implode(" ", $search);
+        $search = str_replace('+', ' ', $search);
+
         $date = request()->input('date');
+        $date = str_replace('+', '-', $date);
+
         $group = request()->input('group');
 
         $BufferPosting = BufferPosting::with('groupInfo','accountInfo');
@@ -29,11 +31,12 @@ class HistoryController extends Controller
         if(request()->has('search') && $search !== ""){
             $BufferPosting = $BufferPosting->where('post_text', 'LIKE', "%{$search}%" );
         }
-
         
-        // if(request()->has('date')){
-        //     $BufferPosting = $BufferPosting->where('sent_at',  date("Y-m-d H:i:s", strtotime($date)) );
-        // }
+         if(request()->has('date') && $date !== ""){
+             $start = Carbon\Carbon::parse($date)->toDateTimeString();
+             $end = Carbon\Carbon::parse($date)->addDay(1)->toDateTimeString();
+             $BufferPosting = $BufferPosting->whereBetween('sent_at', [$start,$end] );
+         }
 
         
         if(request()->has('group') && $group !== ""){

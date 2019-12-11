@@ -16,6 +16,7 @@
                     </div>    
                     <div class="form-group col-sm-3">
                         <select name="group" class="form-control">
+                            <option value="">Group</option>
                             @foreach ($groups as  $group)
                                 <option value="{{$group->id}}" @if(request()->input('group') == $group->id) selected @endif>{{$group->name}}</option>                                
                             @endforeach
